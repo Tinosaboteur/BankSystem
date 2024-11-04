@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BankDatabaseModelStoreContainer" CdmEntityContainer="BankDatabaseEntities">
+    <EntitySetMapping Name="ACCOUNT">
+      <EntityTypeMapping TypeName="BankDatabaseModel.ACCOUNT">
+        <MappingFragment StoreEntitySet="ACCOUNT">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="customerid" ColumnName="customerid" />
+          <ScalarProperty Name="date_opened" ColumnName="date_opened" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BRANCH">
+      <EntityTypeMapping TypeName="BankDatabaseModel.BRANCH">
+        <MappingFragment StoreEntitySet="BRANCH">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="house_no" ColumnName="house_no" />
+          <ScalarProperty Name="city" ColumnName="city" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMER">
+      <EntityTypeMapping TypeName="BankDatabaseModel.CUSTOMER">
+        <MappingFragment StoreEntitySet="CUSTOMER">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="house_no" ColumnName="house_no" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="pin" ColumnName="pin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMPLOYEE">
+      <EntityTypeMapping TypeName="BankDatabaseModel.EMPLOYEE">
+        <MappingFragment StoreEntitySet="EMPLOYEE">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRANSACTION">
+      <EntityTypeMapping TypeName="BankDatabaseModel.TRANSACTION">
+        <MappingFragment StoreEntitySet="TRANSACTION">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="from_account_id" ColumnName="from_account_id" />
+          <ScalarProperty Name="to_account_id" ColumnName="to_account_id" />
+          <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+          <ScalarProperty Name="date_of_trans" ColumnName="date_of_trans" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="pin" ColumnName="pin" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

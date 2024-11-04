@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="236f2edbb4e646f1918e12c4a7a1542c" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="BankDatabaseModel.ACCOUNT" Width="1.5" PointX="3.125" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BankDatabaseModel.BRANCH" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BankDatabaseModel.CUSTOMER" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BankDatabaseModel.EMPLOYEE" Width="1.5" PointX="8.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BankDatabaseModel.TRANSACTION" Width="1.5" PointX="5.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="BankDatabaseModel.FK__ACCOUNT__custome__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="BankDatabaseModel.FK__TRANSACTI__from___403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="BankDatabaseModel.FK__TRANSACTI__to_ac__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="BankDatabaseModel.FK__TRANSACTI__branc__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="BankDatabaseModel.FK__TRANSACTI__emplo__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

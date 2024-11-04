@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BankDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="customerid" Type="varchar" MaxLength="255" />
+          <Property Name="date_opened" Type="date" />
+          <Property Name="balance" Type="float" />
+        </EntityType>
+        <EntityType Name="BRANCH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="house_no" Type="varchar" MaxLength="255" />
+          <Property Name="city" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="phone" Type="varchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="house_no" Type="varchar" MaxLength="255" />
+          <Property Name="city" Type="varchar" MaxLength="255" />
+          <Property Name="pin" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRANSACTION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="from_account_id" Type="int" />
+          <Property Name="to_account_id" Type="int" />
+          <Property Name="branch_id" Type="varchar" MaxLength="255" />
+          <Property Name="date_of_trans" Type="date" />
+          <Property Name="amount" Type="float" />
+          <Property Name="pin" Type="varchar" MaxLength="255" />
+          <Property Name="employee_id" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__ACCOUNT__custome__398D8EEE">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="0..1" />
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACCOUNT">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__branc__4222D4EF">
+          <End Role="BRANCH" Type="Self.BRANCH" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BRANCH">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__emplo__4316F928">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__from___403A8C7D">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="from_account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__to_ac__412EB0B6">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="to_account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankDatabaseModelStoreContainer">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BRANCH" EntityType="Self.BRANCH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRANSACTION" EntityType="Self.TRANSACTION" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ACCOUNT__custome__398D8EEE" Association="Self.FK__ACCOUNT__custome__398D8EEE">
+            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__branc__4222D4EF" Association="Self.FK__TRANSACTI__branc__4222D4EF">
+            <End Role="BRANCH" EntitySet="BRANCH" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__emplo__4316F928" Association="Self.FK__TRANSACTI__emplo__4316F928">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__from___403A8C7D" Association="Self.FK__TRANSACTI__from___403A8C7D">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__to_ac__412EB0B6" Association="Self.FK__TRANSACTI__to_ac__412EB0B6">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BankDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="customerid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="date_opened" Type="DateTime" Precision="0" />
+          <Property Name="balance" Type="Double" />
+          <NavigationProperty Name="CUSTOMER" Relationship="Self.FK__ACCOUNT__custome__398D8EEE" FromRole="ACCOUNT" ToRole="CUSTOMER" />
+          <NavigationProperty Name="TRANSACTION" Relationship="Self.FK__TRANSACTI__from___403A8C7D" FromRole="ACCOUNT" ToRole="TRANSACTION" />
+          <NavigationProperty Name="TRANSACTION1" Relationship="Self.FK__TRANSACTI__to_ac__412EB0B6" FromRole="ACCOUNT" ToRole="TRANSACTION" />
+        </EntityType>
+        <EntityType Name="BRANCH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="house_no" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TRANSACTION" Relationship="Self.FK__TRANSACTI__branc__4222D4EF" FromRole="BRANCH" ToRole="TRANSACTION" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="house_no" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pin" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.FK__ACCOUNT__custome__398D8EEE" FromRole="CUSTOMER" ToRole="ACCOUNT" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TRANSACTION" Relationship="Self.FK__TRANSACTI__emplo__4316F928" FromRole="EMPLOYEE" ToRole="TRANSACTION" />
+        </EntityType>
+        <EntityType Name="TRANSACTION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="from_account_id" Type="Int32" />
+          <Property Name="to_account_id" Type="Int32" />
+          <Property Name="branch_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_trans" Type="DateTime" Precision="0" />
+          <Property Name="amount" Type="Double" />
+          <Property Name="pin" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="employee_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.FK__TRANSACTI__from___403A8C7D" FromRole="TRANSACTION" ToRole="ACCOUNT" />
+          <NavigationProperty Name="ACCOUNT1" Relationship="Self.FK__TRANSACTI__to_ac__412EB0B6" FromRole="TRANSACTION" ToRole="ACCOUNT" />
+          <NavigationProperty Name="BRANCH" Relationship="Self.FK__TRANSACTI__branc__4222D4EF" FromRole="TRANSACTION" ToRole="BRANCH" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="Self.FK__TRANSACTI__emplo__4316F928" FromRole="TRANSACTION" ToRole="EMPLOYEE" />
+        </EntityType>
+        <Association Name="FK__ACCOUNT__custome__398D8EEE">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="0..1" />
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ACCOUNT">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__from___403A8C7D">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="from_account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__to_ac__412EB0B6">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="to_account_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__branc__4222D4EF">
+          <End Role="BRANCH" Type="Self.BRANCH" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BRANCH">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRANSACTI__emplo__4316F928">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="TRANSACTION" Type="Self.TRANSACTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRANSACTION">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" />
+          <EntitySet Name="BRANCH" EntityType="Self.BRANCH" />
+          <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" />
+          <EntitySet Name="TRANSACTION" EntityType="Self.TRANSACTION" />
+          <AssociationSet Name="FK__ACCOUNT__custome__398D8EEE" Association="Self.FK__ACCOUNT__custome__398D8EEE">
+            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__from___403A8C7D" Association="Self.FK__TRANSACTI__from___403A8C7D">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__to_ac__412EB0B6" Association="Self.FK__TRANSACTI__to_ac__412EB0B6">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__branc__4222D4EF" Association="Self.FK__TRANSACTI__branc__4222D4EF">
+            <End Role="BRANCH" EntitySet="BRANCH" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRANSACTI__emplo__4316F928" Association="Self.FK__TRANSACTI__emplo__4316F928">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="TRANSACTION" EntitySet="TRANSACTION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BankDatabaseModelStoreContainer" CdmEntityContainer="BankDatabaseEntities">
+          <EntitySetMapping Name="ACCOUNT">
+            <EntityTypeMapping TypeName="BankDatabaseModel.ACCOUNT">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="date_opened" ColumnName="date_opened" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BRANCH">
+            <EntityTypeMapping TypeName="BankDatabaseModel.BRANCH">
+              <MappingFragment StoreEntitySet="BRANCH">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="house_no" ColumnName="house_no" />
+                <ScalarProperty Name="city" ColumnName="city" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMER">
+            <EntityTypeMapping TypeName="BankDatabaseModel.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="house_no" ColumnName="house_no" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="pin" ColumnName="pin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEE">
+            <EntityTypeMapping TypeName="BankDatabaseModel.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSACTION">
+            <EntityTypeMapping TypeName="BankDatabaseModel.TRANSACTION">
+              <MappingFragment StoreEntitySet="TRANSACTION">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="from_account_id" ColumnName="from_account_id" />
+                <ScalarProperty Name="to_account_id" ColumnName="to_account_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="date_of_trans" ColumnName="date_of_trans" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="pin" ColumnName="pin" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
